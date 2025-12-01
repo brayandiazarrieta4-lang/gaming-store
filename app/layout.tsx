@@ -16,7 +16,7 @@ export default function RootLayout({
           <Navbar />
         </HideNavbarOnAuth>
         {children}
-              <HideNavbarOnAuth>
+        <HideNavbarOnAuth>
         <Footer />
       </HideNavbarOnAuth>
       </body>
