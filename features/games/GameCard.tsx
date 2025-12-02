@@ -10,7 +10,7 @@ interface ProductCardProps {
   product: Product;
   onEdit?: (product: Product) => void;
   onDelete?: (id: string) => void;
-  disableNavigation?: boolean; 
+  disableNavigation?: boolean;
 }
 
 export function ProductCard({
@@ -36,9 +36,14 @@ export function ProductCard({
   return (
     <Card
       onClick={handleCardClick}
-      className={`group relative overflow-hidden rounded-2xl border bg-white shadow-lg 
-                transition-all duration-300 hover:shadow-2xl 
-                ${disableNavigation ? "cursor-default" : "cursor-pointer"}`}
+      className={`group relative overflow-hidden rounded-2xl
+              border border-purple-500/40
+              bg-[radial-gradient(circle_at_30%_20%,rgba(147,51,234,0.25),rgba(255,255,255,0)_70%),rgba(255,255,255,0.08)]
+              backdrop-blur-2xl
+              shadow-purple-700/30 shadow-lg
+              transition-all duration-300
+              hover:border-purple-500 hover:shadow-purple-500/60 hover:shadow-xl hover:scale-[1.02]
+              ${disableNavigation ? "cursor-default" : "cursor-pointer"}`}
     >
       <div className="relative aspect-3/4 overflow-hidden bg-muted">
         {product.image ? (
@@ -94,7 +99,7 @@ export function ProductCard({
                 size="sm"
                 className="flex-1 h-9 rounded-full border border-black text-gray-700 hover:bg-gray-100 font-medium"
                 onClick={(e) => {
-                  e.stopPropagation(); 
+                  e.stopPropagation();
                   onEdit(product);
                 }}
               >
@@ -108,7 +113,7 @@ export function ProductCard({
                 size="sm"
                 className="flex-1 h-9 text-red-600 border-black border rounded-full hover:bg-red-50 font-medium"
                 onClick={(e) => {
-                  e.stopPropagation(); 
+                  e.stopPropagation();
                   onDelete(product.id!);
                 }}
               >

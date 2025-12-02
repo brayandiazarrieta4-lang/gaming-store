@@ -1,5 +1,4 @@
 'use client';
-
 import { FormEvent, useState } from 'react'; // Eliminamos useEffect
 import { productService } from '@/services/gameService';
 import type { Product } from '@/types/game';
@@ -19,6 +18,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { useFetchGames } from '@/hooks/useFetchGames'; // <-- Importación del hook
+import Loading from '../games/loading';
 
 export default function ProductsPage() {
   // 1. Usar el hook para obtener y gestionar el estado de carga/error
@@ -92,14 +92,14 @@ export default function ProductsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-2xl font-semibold">Cargando productos...</div>
+        <div className="text-2xl font-semibold"><Loading /></div>
       </div>
     );
   }
 
   // ... (El resto del return es idéntico)
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* ... (Controles de diálogo) */}
 
