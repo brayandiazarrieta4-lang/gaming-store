@@ -1,8 +1,9 @@
 @import "tailwindcss";
-
-@import "tw-animate-css"; 
-
+/*---break--- */
+@plugin "tailwindcss-animate";
+/*---break--- */
 @custom-variant dark (&:is(.dark *));
+
 
 .text-glow-pink {
   text-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF, 0 0 20px #FF00FF;
@@ -31,7 +32,46 @@
     0 0 20px #FFFFFF,
     0 0 40px #FFFFFF;
 }
+/*fondo gif */
+body {
+  background-image: url("https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnZudGwxYWhmcHRiOWdmYW9xMnkxMmF5aW94ZWF3NGVqeHpybndtdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6amUQsUG9HGFUcrV5F/giphy.gif");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  animation: parallaxMove 25s infinite linear;
+}
 
+@keyframes parallaxMove {
+  0% {
+    background-position: center 0px;
+  }
+  50% {
+    background-position: center 40px;
+  }
+  100% {
+    background-position: center 0px;   
+  }
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 0, 40, 0.55);
+  pointer-events: none;
+  z-index: 1;
+}
+
+body > * {
+  position: relative;
+  z-index: 5;
+}
+/* */
+/*---break--- */
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -69,7 +109,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 }
-
+/*---break--- */
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -104,7 +144,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 }
-
+/*---break--- */
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -138,7 +178,7 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
-
+/*---break--- */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -146,4 +186,98 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+
+/*diseño boton carrusel*/
+/* ESTILOS BASE DE EMBLA */
+
+/* Contenedor principal del carrusel (Viewport) */
+.embla {
+    overflow: hidden; /* Esto oculta los slides que están fuera de la vista */
+    width: 100%;
+}
+
+/* Contenedor de los Slides (Container) - Este es el que se traslada */
+.embla__container {
+    display: flex; /* Mantiene los slides en línea */
+    /* Aquí puedes definir el GAP para la separación entre tarjetas */
+    gap: 1.5rem; /* ~ 24px de separación */
+}
+
+/* Cada tarjeta de juego es un Slide */
+.embla__slide {
+    /* CLAVE: Define el ancho visible de la tarjeta. 
+       Esto debe coincidir con el tamaño de tu .nl-card */
+    flex: 0 0 260px; /* Ancho fijo de la tarjeta */
+    min-width: 0; /* Necesario para que flexbox funcione bien */
+    position: relative;
+    /* Agregamos padding horizontal para que no se pegue al borde */
+    padding: 0 0.5rem; 
+}
+
+/* Contenedor relativo para posicionar los botones */
+.embla-wrap {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1200px; /* Limita el ancho del carrusel */
+}
+
+
+/* ESTILOS DE LOS BOTONES LATERALES */
+
+.embla__button {
+    /* Estilos de la flecha base */
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    transform: translateY(-50%);
+    z-index: 10;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+/* Botón Anterior (Izquierda) */
+.embla__button--prev {
+    left: 0px; /* Se pega al borde izquierdo del embla-wrap */
+}
+
+/* Botón Siguiente (Derecha) */
+.embla__button--next {
+    right: 0px; /* Se pega al borde derecho del embla-wrap */
+}
+
+/* Icono SVG de la flecha */
+.embla__button__svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Desactivar botón */
+.embla__button:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+/* Efecto hover */
+.embla__button:not(:disabled):hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+/* Ajuste para que los botones floten sobre la pantalla */
+@media (min-width: 768px) {
+    .embla__button--prev {
+        left: -40px; /* Mueve el botón fuera del contenedor si hay espacio */
+    }
+    .embla__button--next {
+        right: -40px;
+    }
 }
